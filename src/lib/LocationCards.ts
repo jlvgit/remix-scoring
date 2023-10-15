@@ -11,8 +11,12 @@ export const Locations: Card[] = [
     name: "Bifrost",
     type: CardType.LOCATION,
     basePower: 0,
-    tags: [],
     cardText: "+11 with a second LOCATION",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
     bonusPower: (cards: Card[]) => {
       const otherLocations = getOtherCardsWithType(
         cards,
@@ -32,8 +36,19 @@ export const Locations: Card[] = [
     name: "Birnin Zana",
     type: CardType.LOCATION,
     basePower: 0,
-    tags: [Tag.TECH, Tag.WAKANDA, Tag.URBAN],
     cardText: "+7 for each other WAKANDA",
+    tags: {
+      base: [Tag.TECH, Tag.WAKANDA, Tag.URBAN],
+      bonus: [],
+      combined: [Tag.TECH, Tag.WAKANDA, Tag.URBAN],
+      conditional: (cards: Card[]) => {
+        const names = getHandInfo(cards).names;
+
+        return names.includes("Hack In")
+          ? [Tag.TECH, Tag.WAKANDA, Tag.URBAN, Tag.INTEL]
+          : [Tag.TECH, Tag.WAKANDA, Tag.URBAN];
+      },
+    },
     bonusPower: (cards: Card[]) => {
       const otherWakanda = getOtherCardsWithTag(
         cards,
@@ -48,20 +63,17 @@ export const Locations: Card[] = [
         },
       ];
     },
-    conditionalTags: (cards: Card[]) => {
-      const names = getHandInfo(cards).names;
-
-      return names.includes("Hack In")
-        ? [Tag.TECH, Tag.WAKANDA, Tag.URBAN, Tag.INTEL]
-        : [Tag.TECH, Tag.WAKANDA, Tag.URBAN];
-    },
   },
   {
     name: "Factory",
     type: CardType.LOCATION,
     basePower: 0,
-    tags: [],
     cardText: "+5 for each TECH, and for each AGILITY",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
     bonusPower: (cards: Card[]) => {
       const tags = getHandInfo(cards).tags;
 
@@ -84,8 +96,8 @@ export const Locations: Card[] = [
     name: "Falling Debris",
     type: CardType.LOCATION,
     basePower: 0,
-    tags: [Tag.URBAN],
     cardText: "+4 for for each STRENGTH and for each FLIGHT",
+    tags: { base: [Tag.URBAN], bonus: [], combined: [Tag.URBAN] },
     bonusPower: (cards: Card[]) => {
       const tags = getHandInfo(cards).tags;
 
@@ -108,8 +120,8 @@ export const Locations: Card[] = [
     name: "Halls of Asgard",
     type: CardType.LOCATION,
     basePower: 0,
-    tags: [Tag.URBAN],
     cardText: "+9 for each other ASGARD",
+    tags: { base: [Tag.URBAN], bonus: [], combined: [Tag.URBAN] },
     bonusPower: (cards: Card[]) => {
       const otherAsgard = getOtherCardsWithTag(
         cards,
@@ -129,8 +141,8 @@ export const Locations: Card[] = [
     name: "High Speed Chase",
     type: CardType.LOCATION,
     basePower: 0,
-    tags: [Tag.URBAN],
     cardText: "+3 for each AGILITY, for each FLIGHT, and for each RANGE",
+    tags: { base: [Tag.URBAN], bonus: [], combined: [Tag.URBAN] },
     bonusPower: (cards: Card[]) => {
       const tags = getHandInfo(cards).tags;
 
@@ -158,8 +170,12 @@ export const Locations: Card[] = [
     name: "Krakoa",
     type: CardType.LOCATION,
     basePower: 0,
-    tags: [],
     cardText: "+5 for each MUTANT",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
     bonusPower: (cards: Card[]) => {
       const types = getHandInfo(cards).types;
 
@@ -175,8 +191,8 @@ export const Locations: Card[] = [
     name: "Madripoor",
     type: CardType.LOCATION,
     basePower: 0,
-    tags: [Tag.URBAN],
     cardText: "+3 for each INTEL",
+    tags: { base: [Tag.URBAN], bonus: [], combined: [Tag.URBAN] },
     bonusPower: (cards: Card[]) => {
       const tags = getHandInfo(cards).tags;
 
@@ -192,8 +208,12 @@ export const Locations: Card[] = [
     name: "Remote Fortress",
     type: CardType.LOCATION,
     basePower: 15,
-    tags: [],
     cardText: "Blanked unless with a VILLAIN with BOSS",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
     blanked: (cards: Card[]) => {
       const hasBossVillain = hasCardWithTypeAndTag(
         cards,
@@ -208,8 +228,8 @@ export const Locations: Card[] = [
     name: "Runaway Train",
     type: CardType.LOCATION,
     basePower: 0,
-    tags: [Tag.URBAN],
     cardText: "+4 for each STRENGTH and each TECH",
+    tags: { base: [Tag.URBAN], bonus: [], combined: [Tag.URBAN] },
     bonusPower: (cards: Card[]) => {
       const tags = getHandInfo(cards).tags;
 
@@ -232,8 +252,8 @@ export const Locations: Card[] = [
     name: "Skyscraper",
     type: CardType.LOCATION,
     basePower: 0,
-    tags: [Tag.URBAN],
     cardText: "+4 for for each AGILITY and for each FLIGHT",
+    tags: { base: [Tag.URBAN], bonus: [], combined: [Tag.URBAN] },
     bonusPower: (cards: Card[]) => {
       const tags = getHandInfo(cards).tags;
 
@@ -256,7 +276,11 @@ export const Locations: Card[] = [
     name: "Xavier Mansion",
     type: CardType.LOCATION,
     basePower: 4,
-    tags: [],
     cardText: "Up to three HEROES with MUTANT may each count one tag twice",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
   },
 ];

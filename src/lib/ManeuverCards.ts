@@ -6,8 +6,12 @@ export const Maneuvers: Card[] = [
     name: "Avoid Crossfire",
     type: CardType.MANEUVER,
     basePower: 0,
-    tags: [],
     cardText: "+5|7|9 for each RANGE if with 1|2|3 or more cards with RANGE",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
     blanked: (cards: Card[]) => {
       const handInfo = getHandInfo(cards);
       const hasTaskmaster = handInfo.names.includes("Taskmaster");
@@ -40,8 +44,12 @@ export const Maneuvers: Card[] = [
     name: "Build Gadgets",
     type: CardType.MANEUVER,
     basePower: 0,
-    tags: [],
     cardText: "+13 for each pair of TECH and INTEL",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
     blanked: (cards: Card[]) => {
       const handInfo = getHandInfo(cards);
       const hasTaskmaster = handInfo.names.includes("Taskmaster");
@@ -67,8 +75,12 @@ export const Maneuvers: Card[] = [
     name: "Discover Weakness",
     type: CardType.MANEUVER,
     basePower: 0,
-    tags: [],
     cardText: "+11 for each pair of INTEL and AGILITY",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
     blanked: (cards: Card[]) => {
       const handInfo = getHandInfo(cards);
       const hasTaskmaster = handInfo.names.includes("Taskmaster");
@@ -97,8 +109,12 @@ export const Maneuvers: Card[] = [
     name: "Find Higher Ground",
     type: CardType.MANEUVER,
     basePower: 0,
-    tags: [],
     cardText: "+10 for each pair of FLIGHT and RANGE",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
     blanked: (cards: Card[]) => {
       const handInfo = getHandInfo(cards);
       const hasTaskmaster = handInfo.names.includes("Taskmaster");
@@ -124,8 +140,12 @@ export const Maneuvers: Card[] = [
     name: "Hack In",
     type: CardType.MANEUVER,
     basePower: 0,
-    tags: [Tag.INTEL],
     cardText: "+6 for each TECH. Each TECH also counts as INTEL",
+    tags: {
+      base: [Tag.INTEL],
+      bonus: [],
+      combined: [Tag.INTEL],
+    },
     bonusPower: (cards: Card[]) => {
       const handInfo = getHandInfo(cards);
       return [
@@ -140,8 +160,8 @@ export const Maneuvers: Card[] = [
     name: "Throw Car",
     type: CardType.MANEUVER,
     basePower: 0,
-    tags: [Tag.RANGE],
     cardText: "+14 with both STRENGTH and LOCATION with URBAN",
+    tags: { base: [Tag.RANGE], bonus: [], combined: [Tag.RANGE] },
     blanked: (cards: Card[]) => {
       const handInfo = getHandInfo(cards);
       const hasTaskmaster = handInfo.names.includes("Taskmaster");
@@ -173,8 +193,12 @@ export const Maneuvers: Card[] = [
     name: "Precise Shot",
     type: CardType.MANEUVER,
     basePower: 0,
-    tags: [],
     cardText: "+12 for each pair of INTEL and RANGE",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
     blanked: (cards: Card[]) => {
       const handInfo = getHandInfo(cards);
       const hasTaskmaster = handInfo.names.includes("Taskmaster");

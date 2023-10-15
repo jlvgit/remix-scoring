@@ -10,8 +10,8 @@ export const Villains: Card[] = [
     name: "Abomination",
     type: CardType.VILLAIN,
     basePower: 13,
-    tags: [Tag.GAMMA],
     cardText: "-20 unless with two or more STRENGTH",
+    tags: { base: [Tag.GAMMA], bonus: [], combined: [Tag.GAMMA] },
     bonusPower: (cards: Card[]) => {
       const tags = getHandInfo(cards).tags;
 
@@ -30,8 +30,8 @@ export const Villains: Card[] = [
     name: "Baron Zemo",
     type: CardType.VILLAIN,
     basePower: 15,
-    tags: [Tag.BOSS],
     cardText: "-3 for each HERO",
+    tags: { base: [Tag.BOSS], bonus: [], combined: [Tag.BOSS] },
     bonusPower: (cards: Card[]) => {
       const types = getHandInfo(cards).types;
 
@@ -47,8 +47,12 @@ export const Villains: Card[] = [
     name: "Black Cat",
     type: CardType.VILLAIN,
     basePower: 8,
-    tags: [],
     cardText: "+5 with a LOCATION with URBAN. -5 for each MANEUVER",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
     bonusPower: (cards: Card[]) => {
       const handInfo = getHandInfo(cards);
 
@@ -78,8 +82,8 @@ export const Villains: Card[] = [
     name: "Hela",
     type: CardType.VILLAIN,
     basePower: 18,
-    tags: [Tag.ASGARD],
     cardText: "-20 unless with two or more other ASGARD",
+    tags: { base: [Tag.ASGARD], bonus: [], combined: [Tag.ASGARD] },
     bonusPower: (cards: Card[]) => {
       const otherAsgard = getOtherCardsWithTag(cards, Tag.ASGARD, "Hela");
 
@@ -98,8 +102,12 @@ export const Villains: Card[] = [
     name: "Kang",
     type: CardType.VILLAIN,
     basePower: -10,
-    tags: [],
     cardText: "+5 for each different tag in your hand",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
     bonusPower: (cards: Card[]) => {
       const tags = getHandInfo(cards).tags;
 
@@ -115,8 +123,8 @@ export const Villains: Card[] = [
     name: "Killmonger",
     type: CardType.VILLAIN,
     basePower: -9,
-    tags: [Tag.WAKANDA],
     cardText: "+9 for each other WAKANDA",
+    tags: { base: [Tag.WAKANDA], bonus: [], combined: [Tag.WAKANDA] },
     bonusPower: (cards: Card[]) => {
       const otherWakanda = getOtherCardsWithTag(
         cards,
@@ -136,8 +144,8 @@ export const Villains: Card[] = [
     name: "Kingpin",
     type: CardType.VILLAIN,
     basePower: 13,
-    tags: [Tag.BOSS],
     cardText: "Blanked unless with a LOCATION with URBAN",
+    tags: { base: [Tag.BOSS], bonus: [], combined: [Tag.BOSS] },
     bonusPower: (cards: Card[]) => {
       const hasUrbanLocation = hasCardWithTypeAndTag(
         cards,
@@ -160,9 +168,9 @@ export const Villains: Card[] = [
     name: "Mystique",
     type: CardType.VILLAIN,
     basePower: 14,
-    tags: [Tag.MUTANT],
     cardText:
       "-20 unless with two or more INTEL or with any three cards sharing the same tag",
+    tags: { base: [Tag.MUTANT], bonus: [], combined: [Tag.MUTANT] },
     bonusPower: (cards: Card[]) => {
       const handInfo = getHandInfo(cards);
 
@@ -177,11 +185,13 @@ export const Villains: Card[] = [
         ];
       }
 
-      const uniqueTags: string[] = [];
+      const uniqueTags: Tag[] = [];
       // loop through cards and see if any 3 share the same tag
       cards.forEach((card) => {
-        card.tags.forEach((tag) => {
-          const matchingCards = cards.filter((card) => card.tags.includes(tag));
+        card.tags.combined.forEach((tag) => {
+          const matchingCards = cards.filter((card) =>
+            card.tags.combined.includes(tag)
+          );
           if (matchingCards.length >= 3 && !uniqueTags.includes(tag)) {
             uniqueTags.push(tag);
           }
@@ -203,8 +213,12 @@ export const Villains: Card[] = [
     name: "Sauron",
     type: CardType.VILLAIN,
     basePower: -7,
-    tags: [],
     cardText: "-7 for each FLIGHT and for each RANGE",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
     bonusPower: (cards: Card[]) => {
       const tags = getHandInfo(cards).tags;
 
@@ -227,8 +241,12 @@ export const Villains: Card[] = [
     name: "Sentinels",
     type: CardType.VILLAIN,
     basePower: 12,
-    tags: [],
     cardText: "-20 unless with two or more MUTANTS",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
     bonusPower: (cards: Card[]) => {
       const tags = getHandInfo(cards).tags;
 
@@ -249,15 +267,23 @@ export const Villains: Card[] = [
     name: "Taskmaster",
     type: CardType.VILLAIN,
     basePower: 11,
-    tags: [],
     cardText: "Blank all MANEUVERS",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
   },
   {
     name: "The Leader",
     type: CardType.VILLAIN,
     basePower: 12,
-    tags: [Tag.GAMMA, Tag.BOSS],
     cardText: "-3 for each STRENGTH and for other GAMMA",
+    tags: {
+      base: [Tag.GAMMA, Tag.BOSS],
+      bonus: [],
+      combined: [Tag.GAMMA, Tag.BOSS],
+    },
     bonusPower: (cards: Card[]) => {
       const tags = getHandInfo(cards).tags;
 
@@ -280,8 +306,8 @@ export const Villains: Card[] = [
     name: "Toad",
     type: CardType.VILLAIN,
     basePower: 14,
-    tags: [Tag.MUTANT],
     cardText: "Blanked unless with a VILLAIN with BOSS",
+    tags: { base: [Tag.MUTANT], bonus: [], combined: [Tag.MUTANT] },
     bonusPower: (cards: Card[]) => {
       const hasBossVillain = hasCardWithTypeAndTag(
         cards,
@@ -303,8 +329,8 @@ export const Villains: Card[] = [
     name: "Ultron",
     type: CardType.VILLAIN,
     basePower: 14,
-    tags: [Tag.BOSS],
     cardText: "-20 unless with two or more TECH",
+    tags: { base: [Tag.BOSS], bonus: [], combined: [Tag.BOSS] },
     bonusPower: (cards: Card[]) => {
       const tags = getHandInfo(cards).tags;
 

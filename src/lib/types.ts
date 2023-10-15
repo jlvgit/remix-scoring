@@ -2,10 +2,14 @@ export type Card = {
   name: string;
   type: string;
   basePower: number;
-  tags: string[];
+  tags: {
+    base: Tag[];
+    bonus: Tag[];
+    conditional?: (cards: Card[]) => Tag[];
+    combined: Tag[];
+  };
   cardText: string;
   bonusPower?: (cards: Card[]) => CardScore[];
-  conditionalTags?: (cards: Card[]) => string[];
   blanked?: (cards: Card[]) => boolean;
 };
 

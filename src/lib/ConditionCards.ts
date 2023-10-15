@@ -6,8 +6,12 @@ export const Condition: Card[] = [
     name: "Assembled",
     type: CardType.CONDITION,
     basePower: 0,
-    tags: [],
     cardText: "+4 for each HERO",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
     bonusPower: (cards: Card[]) => {
       const handInfo = getHandInfo(cards);
 
@@ -25,9 +29,13 @@ export const Condition: Card[] = [
     name: "Berserk",
     type: CardType.CONDITION,
     basePower: 18,
-    tags: [Tag.STRENGTH, Tag.GAMMA],
     cardText:
       "Choose a HERO or ALLY. -3 for each other HERO or ALLY and each URBAN",
+    tags: {
+      base: [Tag.STRENGTH, Tag.GAMMA],
+      bonus: [],
+      combined: [Tag.STRENGTH, Tag.GAMMA],
+    },
     bonusPower: (cards: Card[]) => {
       const handInfo = getHandInfo(cards);
 
@@ -52,8 +60,12 @@ export const Condition: Card[] = [
     name: "Fearless",
     type: CardType.CONDITION,
     basePower: 16,
-    tags: [Tag.AGILITY],
     cardText: "Blanked if there is more than one HERO in your hand",
+    tags: {
+      base: [Tag.AGILITY],
+      bonus: [],
+      combined: [Tag.AGILITY],
+    },
     blanked: (cards: Card[]) => {
       const handInfo = getHandInfo(cards);
 
@@ -66,8 +78,12 @@ export const Condition: Card[] = [
     name: "Secret Identity",
     type: CardType.CONDITION,
     basePower: 8,
-    tags: [Tag.INTEL],
     cardText: "Blanked unless with a HERO and a LOCATION with URBAN",
+    tags: {
+      base: [Tag.INTEL],
+      bonus: [],
+      combined: [Tag.INTEL],
+    },
     blanked: (cards: Card[]) => {
       const handInfo = getHandInfo(cards);
 
@@ -85,8 +101,12 @@ export const Condition: Card[] = [
     name: "Worthy",
     type: CardType.CONDITION,
     basePower: 11,
-    tags: [Tag.WORTHY],
     cardText: "Blanked unless with a VILLAIN with Power greater than 12",
+    tags: {
+      base: [Tag.WORTHY],
+      bonus: [],
+      combined: [Tag.WORTHY],
+    },
     blanked: (cards: Card[]) => {
       const twelvePowerVillains = cards.filter((card) => {
         if (card.type == CardType.VILLAIN && card.basePower > 12) {

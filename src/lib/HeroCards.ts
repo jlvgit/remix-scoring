@@ -11,29 +11,41 @@ export const Heroes: Card[] = [
     name: "Angel",
     type: CardType.HERO,
     basePower: 6,
-    tags: [Tag.AGILITY, Tag.FLIGHT, Tag.MUTANT],
     cardText: "",
+    tags: {
+      base: [Tag.AGILITY, Tag.FLIGHT, Tag.MUTANT],
+      bonus: [],
+      combined: [Tag.AGILITY, Tag.FLIGHT, Tag.MUTANT],
+    },
   },
   {
     name: "Beast",
     type: CardType.HERO,
     basePower: 6,
-    tags: [Tag.TECH, Tag.AGILITY, Tag.MUTANT],
     cardText: "",
-    conditionalTags: (cards: Card[]) => {
-      const names = getHandInfo(cards).names;
+    tags: {
+      base: [Tag.TECH, Tag.AGILITY, Tag.MUTANT],
+      bonus: [],
+      combined: [Tag.TECH, Tag.AGILITY, Tag.MUTANT],
+      conditional: (cards: Card[]) => {
+        const names = getHandInfo(cards).names;
 
-      return names.includes("Hack In")
-        ? [Tag.TECH, Tag.AGILITY, Tag.MUTANT, Tag.INTEL]
-        : [Tag.TECH, Tag.AGILITY, Tag.MUTANT];
+        return names.includes("Hack In")
+          ? [Tag.TECH, Tag.AGILITY, Tag.MUTANT, Tag.INTEL]
+          : [Tag.TECH, Tag.AGILITY, Tag.MUTANT];
+      },
     },
   },
   {
     name: "Black Panther",
     type: CardType.HERO,
     basePower: 4,
-    tags: [Tag.AGILITY, Tag.WAKANDA],
     cardText: "+5 for each other WAKANDA",
+    tags: {
+      base: [Tag.AGILITY, Tag.WAKANDA],
+      bonus: [],
+      combined: [Tag.AGILITY, Tag.WAKANDA],
+    },
     bonusPower: (cards: Card[]) => {
       const otherWakanda = getOtherCardsWithTag(
         cards,
@@ -53,15 +65,39 @@ export const Heroes: Card[] = [
     name: "Black Widow",
     type: CardType.HERO,
     basePower: 6,
-    tags: [Tag.INTEL, Tag.AGILITY, Tag.AGILITY],
     cardText: "",
+    tags: {
+      base: [Tag.INTEL, Tag.AGILITY, Tag.AGILITY],
+      bonus: [],
+      combined: [Tag.INTEL, Tag.AGILITY, Tag.AGILITY],
+    },
   },
   {
     name: "Bruce Banner / Hulk",
     type: CardType.HERO,
     basePower: 1,
-    tags: [Tag.TECH, Tag.GAMMA],
     cardText: "Transform with any other GAMMA",
+    tags: {
+      base: [Tag.TECH, Tag.GAMMA],
+      bonus: [],
+      combined: [Tag.GAMMA],
+      conditional: (cards: Card[]) => {
+        const names = getHandInfo(cards).names;
+        const hasHackIn = names.includes("Hack In");
+
+        const otherGammas = getOtherCardsWithTag(
+          cards,
+          Tag.GAMMA,
+          "Bruce Banner / Hulk"
+        );
+
+        if (otherGammas.length > 0) {
+          return [Tag.GAMMA, Tag.STRENGTH, Tag.STRENGTH, Tag.STRENGTH];
+        } else {
+          return hasHackIn ? [Tag.TECH, Tag.INTEL] : [Tag.TECH, Tag.GAMMA];
+        }
+      },
+    },
     bonusPower: (cards: Card[]) => {
       const otherGammas = getOtherCardsWithTag(
         cards,
@@ -79,31 +115,17 @@ export const Heroes: Card[] = [
         },
       ];
     },
-    conditionalTags: (cards: Card[]) => {
-      const names = getHandInfo(cards).names;
-      const hasHackIn = names.includes("Hack In");
-
-      const otherGammas = getOtherCardsWithTag(
-        cards,
-        Tag.GAMMA,
-        "Bruce Banner / Hulk"
-      );
-
-      if (otherGammas.length > 0) {
-        return [Tag.GAMMA, Tag.STRENGTH, Tag.STRENGTH, Tag.STRENGTH];
-      } else {
-        return hasHackIn
-          ? [Tag.TECH, Tag.GAMMA, Tag.INTEL]
-          : [Tag.TECH, Tag.GAMMA];
-      }
-    },
   },
   {
     name: "Captain America",
     type: CardType.HERO,
     basePower: 2,
-    tags: [Tag.AGILITY, Tag.WORTHY],
     cardText: "+2 for each other HERO, +4 with VIBRANIUM SHIELD",
+    tags: {
+      base: [Tag.AGILITY, Tag.WORTHY],
+      bonus: [],
+      combined: [Tag.AGILITY, Tag.WORTHY],
+    },
     bonusPower: (cards: Card[]) => {
       const otherHeroes = getOtherCardsWithType(
         cards,
@@ -133,15 +155,23 @@ export const Heroes: Card[] = [
     name: "Colossus",
     type: CardType.HERO,
     basePower: 6,
-    tags: [Tag.STRENGTH, Tag.STRENGTH, Tag.MUTANT],
     cardText: "",
+    tags: {
+      base: [Tag.STRENGTH, Tag.STRENGTH, Tag.MUTANT],
+      bonus: [],
+      combined: [Tag.STRENGTH, Tag.STRENGTH, Tag.MUTANT],
+    },
   },
   {
     name: "Cyclops",
     type: CardType.HERO,
     basePower: 4,
-    tags: [Tag.RANGE, Tag.MUTANT],
     cardText: "+3 for each other MUTANT",
+    tags: {
+      base: [Tag.RANGE, Tag.MUTANT],
+      bonus: [],
+      combined: [Tag.RANGE, Tag.MUTANT],
+    },
     bonusPower: (cards: Card[]) => {
       const otherMutants = getOtherCardsWithTag(cards, Tag.MUTANT, "Cyclops");
       return [
@@ -156,36 +186,48 @@ export const Heroes: Card[] = [
     name: "Falcon",
     type: CardType.HERO,
     basePower: 6,
-    tags: [Tag.TECH, Tag.FLIGHT, Tag.RANGE],
     cardText: "",
-    conditionalTags: (cards: Card[]) => {
-      const names = getHandInfo(cards).names;
+    tags: {
+      base: [Tag.TECH, Tag.FLIGHT, Tag.RANGE],
+      bonus: [],
+      combined: [Tag.TECH, Tag.FLIGHT, Tag.RANGE],
+      conditional: (cards: Card[]) => {
+        const names = getHandInfo(cards).names;
 
-      return names.includes("Hack In")
-        ? [Tag.TECH, Tag.FLIGHT, Tag.RANGE, Tag.INTEL]
-        : [Tag.TECH, Tag.FLIGHT, Tag.RANGE];
+        return names.includes("Hack In")
+          ? [Tag.TECH, Tag.FLIGHT, Tag.RANGE, Tag.INTEL]
+          : [Tag.TECH, Tag.FLIGHT, Tag.RANGE];
+      },
     },
   },
   {
     name: "Hawkeye",
     type: CardType.HERO,
     basePower: 5,
-    tags: [Tag.TECH, Tag.RANGE, Tag.RANGE],
     cardText: "",
-    conditionalTags: (cards: Card[]) => {
-      const names = getHandInfo(cards).names;
+    tags: {
+      base: [Tag.TECH, Tag.RANGE, Tag.RANGE],
+      bonus: [],
+      combined: [Tag.TECH, Tag.RANGE, Tag.RANGE],
+      conditional: (cards: Card[]) => {
+        const names = getHandInfo(cards).names;
 
-      return names.includes("Hack In")
-        ? [Tag.TECH, Tag.RANGE, Tag.RANGE, Tag.INTEL]
-        : [Tag.TECH, Tag.RANGE, Tag.RANGE];
+        return names.includes("Hack In")
+          ? [Tag.TECH, Tag.RANGE, Tag.RANGE, Tag.INTEL]
+          : [Tag.TECH, Tag.RANGE, Tag.RANGE];
+      },
     },
   },
   {
     name: "Professor X",
     type: CardType.HERO,
     basePower: 3,
-    tags: [Tag.INTEL, Tag.MUTANT],
     cardText: "+6 for each of CEREBRO or XAVIER MANSION",
+    tags: {
+      base: [Tag.INTEL, Tag.MUTANT],
+      bonus: [],
+      combined: [Tag.INTEL, Tag.MUTANT],
+    },
     bonusPower: (cards: Card[]) => {
       const names = getHandInfo(cards).names;
 
@@ -210,8 +252,23 @@ export const Heroes: Card[] = [
     name: "Jean Grey / Phoenix",
     type: CardType.HERO,
     basePower: 3,
-    tags: [Tag.INTEL, Tag.RANGE, Tag.MUTANT],
     cardText: "Transform with two or more other MUTANT",
+    tags: {
+      base: [Tag.INTEL, Tag.RANGE, Tag.MUTANT],
+      bonus: [],
+      combined: [Tag.INTEL, Tag.RANGE, Tag.MUTANT],
+      conditional: (cards: Card[]) => {
+        const otherMutants = getOtherCardsWithTag(
+          cards,
+          Tag.MUTANT,
+          "Jean Grey / Phoenix"
+        );
+
+        return otherMutants.length >= 2
+          ? [Tag.INTEL, Tag.RANGE, Tag.RANGE, Tag.FLIGHT, Tag.MUTANT]
+          : [Tag.INTEL, Tag.RANGE, Tag.MUTANT];
+      },
+    },
     bonusPower: (cards: Card[]) => {
       const otherMutants = getOtherCardsWithTag(
         cards,
@@ -229,24 +286,24 @@ export const Heroes: Card[] = [
         },
       ];
     },
-    conditionalTags: (cards: Card[]) => {
-      const otherMutants = getOtherCardsWithTag(
-        cards,
-        Tag.MUTANT,
-        "Jean Grey / Phoenix"
-      );
-
-      return otherMutants.length >= 2
-        ? [Tag.INTEL, Tag.RANGE, Tag.RANGE, Tag.FLIGHT, Tag.MUTANT]
-        : [Tag.INTEL, Tag.RANGE, Tag.MUTANT];
-    },
   },
   {
     name: "Shadowcat",
     type: CardType.HERO,
     basePower: 4,
-    tags: [Tag.TECH, Tag.MUTANT],
     cardText: "+4 with any LOCATION",
+    tags: {
+      base: [Tag.TECH, Tag.MUTANT],
+      bonus: [],
+      combined: [Tag.TECH, Tag.MUTANT],
+      conditional: (cards: Card[]) => {
+        const names = getHandInfo(cards).names;
+
+        return names.includes("Hack In")
+          ? [Tag.TECH, Tag.MUTANT, Tag.INTEL]
+          : [Tag.TECH, Tag.MUTANT];
+      },
+    },
     bonusPower: (cards: Card[]) => {
       const types = getHandInfo(cards).types;
 
@@ -257,20 +314,17 @@ export const Heroes: Card[] = [
         },
       ];
     },
-    conditionalTags: (cards: Card[]) => {
-      const names = getHandInfo(cards).names;
-
-      return names.includes("Hack In")
-        ? [Tag.TECH, Tag.MUTANT, Tag.INTEL]
-        : [Tag.TECH, Tag.MUTANT];
-    },
   },
   {
     name: "She-Hulk",
     type: CardType.HERO,
     basePower: 4,
-    tags: [Tag.STRENGTH, Tag.GAMMA],
     cardText: "+5 for each other GAMMA",
+    tags: {
+      base: [Tag.STRENGTH, Tag.GAMMA],
+      bonus: [],
+      combined: [Tag.STRENGTH, Tag.GAMMA],
+    },
     bonusPower: (cards: Card[]) => {
       const otherGammas = getOtherCardsWithTag(cards, Tag.GAMMA, "She-Hulk");
 
@@ -286,8 +340,17 @@ export const Heroes: Card[] = [
     name: "Spider-Man",
     type: CardType.HERO,
     basePower: 5,
-    tags: [Tag.AGILITY, Tag.STRENGTH],
     cardText: "+5 and FLIGHT with a LOCATION with URBAN",
+    tags: {
+      base: [Tag.AGILITY, Tag.STRENGTH],
+      bonus: [],
+      combined: [Tag.AGILITY, Tag.STRENGTH],
+      conditional: (cards: Card[]) => {
+        return hasCardWithTypeAndTag(cards, CardType.LOCATION, Tag.URBAN)
+          ? [Tag.AGILITY, Tag.STRENGTH, Tag.FLIGHT]
+          : [Tag.AGILITY, Tag.STRENGTH];
+      },
+    },
     bonusPower: (cards: Card[]) => {
       const hasUrbanLocation = hasCardWithTypeAndTag(
         cards,
@@ -303,25 +366,38 @@ export const Heroes: Card[] = [
         },
       ];
     },
-    conditionalTags: (cards: Card[]) => {
-      return hasCardWithTypeAndTag(cards, CardType.LOCATION, Tag.URBAN)
-        ? [Tag.AGILITY, Tag.STRENGTH, Tag.FLIGHT]
-        : [Tag.AGILITY, Tag.STRENGTH];
-    },
   },
   {
     name: "Storm",
     type: CardType.HERO,
     basePower: 4,
-    tags: [Tag.FLIGHT, Tag.RANGE, Tag.MUTANT],
     cardText: "",
+    tags: {
+      base: [Tag.FLIGHT, Tag.RANGE, Tag.MUTANT],
+      bonus: [],
+      combined: [Tag.FLIGHT, Tag.RANGE, Tag.MUTANT],
+    },
   },
   {
     name: "Thor Odinson / God of Thunder",
     type: CardType.HERO,
     basePower: 4,
-    tags: [Tag.STRENGTH, Tag.ASGARD, Tag.WORTHY],
     cardText: "Transform with MJOLNIR or two or more ALLIES",
+    tags: {
+      base: [Tag.STRENGTH, Tag.ASGARD, Tag.WORTHY],
+      bonus: [],
+      combined: [Tag.STRENGTH, Tag.ASGARD, Tag.WORTHY],
+      conditional: (cards: Card[]) => {
+        const info = getHandInfo(cards);
+
+        const allyCount = info.types[CardType.ALLY] || 0;
+        const hasMjolnir = info.names.includes("Mjolnir");
+
+        return hasMjolnir || allyCount >= 2
+          ? [Tag.STRENGTH, Tag.FLIGHT, Tag.RANGE, Tag.ASGARD, Tag.WORTHY]
+          : [Tag.STRENGTH, Tag.ASGARD, Tag.WORTHY];
+      },
+    },
     bonusPower: (cards: Card[]) => {
       const info = getHandInfo(cards);
 
@@ -338,23 +414,30 @@ export const Heroes: Card[] = [
         },
       ];
     },
-    conditionalTags: (cards: Card[]) => {
-      const info = getHandInfo(cards);
-
-      const allyCount = info.types[CardType.ALLY] || 0;
-      const hasMjolnir = info.names.includes("Mjolnir");
-
-      return hasMjolnir || allyCount >= 2
-        ? [Tag.STRENGTH, Tag.FLIGHT, Tag.RANGE, Tag.ASGARD, Tag.WORTHY]
-        : [Tag.STRENGTH, Tag.ASGARD, Tag.WORTHY];
-    },
   },
   {
     name: "Tony Stark / Iron Man",
     type: CardType.HERO,
     basePower: 3,
-    tags: [Tag.TECH, Tag.RANGE],
     cardText: "Transform with two or more INTEL",
+    tags: {
+      base: [Tag.TECH, Tag.RANGE],
+      bonus: [],
+      combined: [Tag.TECH, Tag.RANGE],
+      conditional: (cards: Card[]) => {
+        const tags = getHandInfo(cards).tags;
+        const names = getHandInfo(cards).names;
+        const hasHackIn = names.includes("Hack In");
+
+        return tags[Tag.INTEL] >= 2
+          ? hasHackIn
+            ? [Tag.TECH, Tag.STRENGTH, Tag.FLIGHT, Tag.RANGE, Tag.INTEL]
+            : [Tag.TECH, Tag.STRENGTH, Tag.FLIGHT, Tag.RANGE]
+          : hasHackIn
+          ? [Tag.TECH, Tag.RANGE, Tag.INTEL]
+          : [Tag.TECH, Tag.RANGE];
+      },
+    },
     bonusPower: (cards: Card[]) => {
       const tags = getHandInfo(cards).tags;
 
@@ -368,41 +451,36 @@ export const Heroes: Card[] = [
         },
       ];
     },
-    conditionalTags: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
-      const names = getHandInfo(cards).names;
-      const hasHackIn = names.includes("Hack In");
-
-      return tags[Tag.INTEL] >= 2
-        ? hasHackIn
-          ? [Tag.TECH, Tag.STRENGTH, Tag.FLIGHT, Tag.RANGE, Tag.INTEL]
-          : [Tag.TECH, Tag.STRENGTH, Tag.FLIGHT, Tag.RANGE]
-        : hasHackIn
-        ? [Tag.TECH, Tag.RANGE, Tag.INTEL]
-        : [Tag.TECH, Tag.RANGE];
-    },
   },
   {
     name: "Valkyrie",
     type: CardType.HERO,
     basePower: 7,
-    tags: [Tag.STRENGTH, Tag.FLIGHT, Tag.ASGARD],
     cardText: "+3 for each other MUTANT",
+    tags: {
+      base: [Tag.STRENGTH, Tag.FLIGHT, Tag.ASGARD],
+      bonus: [],
+      combined: [Tag.STRENGTH, Tag.FLIGHT, Tag.ASGARD],
+    },
   },
   {
     name: "Vision",
     type: CardType.HERO,
     basePower: 3,
-    tags: [Tag.WORTHY],
     cardText:
       "VISION has your choice of two different tags, either STRENGTH, FLIGHT, TECH, or RANGE",
+    tags: { base: [Tag.WORTHY], bonus: [], combined: [Tag.WORTHY] },
   },
   {
     name: "Wolverine",
     type: CardType.HERO,
     basePower: 4,
-    tags: [Tag.AGILITY, Tag.MUTANT],
     cardText: "+6 with any VILLAIN with BOSS",
+    tags: {
+      base: [Tag.AGILITY, Tag.MUTANT],
+      bonus: [],
+      combined: [Tag.AGILITY, Tag.MUTANT],
+    },
     bonusPower: (cards: Card[]) => {
       const hasBossVillain = hasCardWithTypeAndTag(
         cards,

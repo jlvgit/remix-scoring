@@ -11,8 +11,12 @@ export const Equipment: Card[] = [
     name: "Arc Reactor",
     type: CardType.EQUIPMENT,
     basePower: 0,
-    tags: [],
     cardText: "+9 for each TECH",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
+    },
     bonusPower: (cards: Card[]) => {
       const tags = getHandInfo(cards).tags;
       return [
@@ -27,17 +31,25 @@ export const Equipment: Card[] = [
     name: "Cerebro",
     type: CardType.EQUIPMENT,
     basePower: 8,
-    tags: [Tag.INTEL],
     cardText:
       "If you take CEREBRO from the discard area, you may swap a card in your hand with a card in the discard area if either has MUTANT",
+    tags: {
+      base: [Tag.INTEL],
+      bonus: [],
+      combined: [Tag.INTEL],
+    },
   },
   {
     name: "Mjolnir",
     type: CardType.EQUIPMENT,
     basePower: 10,
-    tags: [Tag.FLIGHT, Tag.RANGE, Tag.ASGARD],
     cardText:
       "Blanked unless with WORTHY, or unless with a HERO or AllY with WORTHY",
+    tags: {
+      base: [Tag.FLIGHT, Tag.RANGE, Tag.ASGARD],
+      bonus: [],
+      combined: [],
+    },
     blanked: (cards: Card[]) => {
       const tags = getHandInfo(cards).tags;
       const worthyCount = tags[Tag.WORTHY] || 0;
@@ -49,8 +61,12 @@ export const Equipment: Card[] = [
     name: "Spear of Bashenga",
     type: CardType.EQUIPMENT,
     basePower: 0,
-    tags: [Tag.WAKANDA],
     cardText: "+7 for each other EQUIPMENT and each other WAKANDA",
+    tags: {
+      base: [Tag.WAKANDA],
+      bonus: [],
+      combined: [Tag.WAKANDA],
+    },
     bonusPower: (cards: Card[]) => {
       const otherWakanda = getOtherCardsWithTag(
         cards,
@@ -81,8 +97,12 @@ export const Equipment: Card[] = [
     name: "Vibranium Shield",
     type: CardType.EQUIPMENT,
     basePower: 9,
-    tags: [Tag.STRENGTH, Tag.RANGE],
     cardText: "Blanked unless with a HERO with AGILITY",
+    tags: {
+      base: [Tag.STRENGTH, Tag.RANGE],
+      bonus: [],
+      combined: [Tag.STRENGTH, Tag.RANGE],
+    },
     blanked: (cards: Card[]) => {
       const hasAgilityHero = hasCardWithTypeAndTag(
         cards,
@@ -91,6 +111,18 @@ export const Equipment: Card[] = [
       );
 
       return hasAgilityHero.length > 0 ? false : true;
+    },
+  },
+  {
+    name: "X-Jet",
+    type: CardType.EQUIPMENT,
+    basePower: 9,
+    cardText:
+      "Add FLIGHT to each HERO and ALLY with no FLIGHT. Add RANGE to one HERO or ALLY",
+    tags: {
+      base: [],
+      bonus: [],
+      combined: [],
     },
   },
 ];

@@ -6,15 +6,30 @@ export const Allies: Card[] = [
     name: "Dora Milaje",
     type: CardType.ALLY,
     basePower: 6,
-    tags: [Tag.INTEL, Tag.AGILITY, Tag.WAKANDA],
     cardText: "",
+    tags: {
+      base: [Tag.INTEL, Tag.AGILITY, Tag.WAKANDA],
+      bonus: [],
+      combined: [Tag.INTEL, Tag.AGILITY, Tag.WAKANDA],
+    },
   },
   {
     name: "Forge",
     type: CardType.ALLY,
     basePower: 4,
-    tags: [Tag.TECH, Tag.MUTANT],
     cardText: "+4 for each EQUIPMENT",
+    tags: {
+      base: [Tag.TECH, Tag.MUTANT],
+      bonus: [],
+      combined: [Tag.TECH, Tag.MUTANT],
+      conditional: (cards: Card[]) => {
+        const names = getHandInfo(cards).names;
+
+        return names.includes("Hack In")
+          ? [Tag.TECH, Tag.MUTANT, Tag.INTEL]
+          : [Tag.TECH, Tag.MUTANT];
+      },
+    },
     bonusPower: (cards: Card[]) => {
       const types = getHandInfo(cards).types;
 
@@ -25,18 +40,17 @@ export const Allies: Card[] = [
         },
       ];
     },
-    conditionalTags: (cards: Card[]) => {
-      const names = getHandInfo(cards).names;
-
-      return names.includes("Hack In") ? [Tag.INTEL] : [];
-    },
   },
   {
     name: "Heimdall",
     type: CardType.ALLY,
     basePower: 4,
-    tags: [Tag.INTEL, Tag.ASGARD],
     cardText: "+6 with Bifrost",
+    tags: {
+      base: [Tag.INTEL, Tag.ASGARD],
+      bonus: [],
+      combined: [Tag.INTEL, Tag.ASGARD],
+    },
     bonusPower: (cards: Card[]) => {
       const names = getHandInfo(cards).names;
 
@@ -54,20 +68,37 @@ export const Allies: Card[] = [
     name: "Hulk Operations",
     type: CardType.ALLY,
     basePower: 4,
-    tags: [Tag.TECH, Tag.RANGE, Tag.GAMMA],
     cardText: "",
-    conditionalTags: (cards: Card[]) => {
-      const names = getHandInfo(cards).names;
+    tags: {
+      base: [Tag.TECH, Tag.RANGE, Tag.GAMMA],
+      bonus: [],
+      combined: [Tag.TECH, Tag.RANGE, Tag.GAMMA],
+      conditional: (cards: Card[]) => {
+        const names = getHandInfo(cards).names;
 
-      return names.includes("Hack In") ? [Tag.INTEL] : [];
+        return names.includes("Hack In")
+          ? [Tag.TECH, Tag.RANGE, Tag.GAMMA, Tag.INTEL]
+          : [Tag.TECH, Tag.RANGE, Tag.GAMMA];
+      },
     },
   },
   {
     name: "Jane Foster",
     type: CardType.ALLY,
     basePower: 5,
-    tags: [Tag.TECH, Tag.WORTHY],
     cardText: "+8 with THOR ODINSON or GOD OF THUNDER",
+    tags: {
+      base: [Tag.TECH, Tag.WORTHY],
+      bonus: [],
+      combined: [Tag.TECH, Tag.WORTHY],
+      conditional: (cards: Card[]) => {
+        const names = getHandInfo(cards).names;
+
+        return names.includes("Hack In")
+          ? [Tag.TECH, Tag.WORTHY, Tag.INTEL]
+          : [Tag.TECH, Tag.WORTHY];
+      },
+    },
     bonusPower: (cards: Card[]) => {
       const names = getHandInfo(cards).names;
 
@@ -80,18 +111,17 @@ export const Allies: Card[] = [
         },
       ];
     },
-    conditionalTags: (cards: Card[]) => {
-      const names = getHandInfo(cards).names;
-
-      return names.includes("Hack In") ? [Tag.INTEL] : [];
-    },
   },
   {
     name: "Lockheed",
     type: CardType.ALLY,
     basePower: 5,
-    tags: [Tag.FLIGHT, Tag.RANGE],
     cardText: "+7 with SHADOWCAT",
+    tags: {
+      base: [Tag.FLIGHT, Tag.RANGE],
+      bonus: [],
+      combined: [Tag.FLIGHT, Tag.RANGE],
+    },
     bonusPower: (cards: Card[]) => {
       const names = getHandInfo(cards).names;
 
@@ -109,7 +139,18 @@ export const Allies: Card[] = [
     name: "Moira MacTaggert",
     type: CardType.ALLY,
     basePower: 3,
-    tags: [Tag.TECH, Tag.INTEL],
     cardText: "One HERO with MUTANT may count one tag twice",
+    tags: {
+      base: [Tag.TECH, Tag.INTEL],
+      bonus: [],
+      combined: [Tag.TECH, Tag.INTEL],
+      conditional: (cards: Card[]) => {
+        const names = getHandInfo(cards).names;
+
+        return names.includes("Hack In")
+          ? [Tag.TECH, Tag.INTEL, Tag.INTEL]
+          : [Tag.TECH, Tag.INTEL];
+      },
+    },
   },
 ];

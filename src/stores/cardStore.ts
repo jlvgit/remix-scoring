@@ -1,7 +1,7 @@
 import { computed, ref } from "vue";
 import { defineStore } from "pinia";
 
-import { Card, CardType } from "@/lib/types";
+import { Card, CardType, Tag } from "@/lib/types";
 
 // In Setup Stores:
 // ref()s become state properties
@@ -35,7 +35,7 @@ export const useCardStore = defineStore("cards", () => {
     hand.value.forEach((card: Card) => {
       types[card.type] ? types[card.type]++ : (types[card.type] = 1);
 
-      card.tags.forEach((tag) => {
+      card.tags.combined.forEach((tag) => {
         tags[tag] ? tags[tag]++ : (tags[tag] = 1);
       });
     });
@@ -72,9 +72,14 @@ export const useCardStore = defineStore("cards", () => {
     hand = hand.filter((card) => !blankedCards.includes(card));
 
     hand.forEach((card: Card) => {
-      if (card.conditionalTags) {
-        card.tags.concat(card.conditionalTags(hand));
+      let allTags: Tag[] = card.tags.combined;
+      if (card.tags.conditional) {
+        allTags = card.tags.conditional(hand).concat(card.tags.bonus);
+      } else {
+        allTags = card.tags.base.concat(card.tags.bonus);
       }
+
+      card.tags.combined = allTags;
     });
 
     hand.forEach((card: Card) => {

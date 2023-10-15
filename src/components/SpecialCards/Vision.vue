@@ -56,10 +56,10 @@ const props = defineProps<{
 
 const toggleTag = (tag: Tag) => {
   const visionCard = props.hand.find((card) => card.name == "Vision");
-  if (visionCard?.tags.includes(tag)) {
-    visionCard.tags.splice(visionCard?.tags.indexOf(tag), 1);
+  if (visionCard?.tags.bonus.includes(tag)) {
+    visionCard.tags.bonus.splice(visionCard?.tags.bonus.indexOf(tag), 1);
   } else {
-    visionCard?.tags.push(tag);
+    visionCard?.tags.bonus.push(tag);
   }
 };
 </script>

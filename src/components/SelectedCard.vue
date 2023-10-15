@@ -41,7 +41,7 @@
             <v-card-subtitle class="text-wrap">
               {{ card.type }}
               <v-chip
-                v-for="tag in card.tags"
+                v-for="tag in card.tags.combined"
                 variant="elevated"
                 class="ma-1"
                 :color="tagColors[tag.toLowerCase()]"
@@ -59,16 +59,13 @@
         </div>
       </v-card-item>
     </v-card>
-    <MoiraMacTaggert
-      v-if="card.name == 'Moira MacTaggert'"
-      :hand="hand"
+    <TagSelect
+      v-if="card.name == 'Moira MacTaggert' || card.name == 'Xavier Mansion'"
+      :defaultTags="mutantHeroTags"
+      :selectionCards="mutantHeroCards"
       :tagColors="tagColors"
-    ></MoiraMacTaggert>
-    <XavierMansion
-      v-if="card.name == 'Xavier Mansion'"
-      :hand="hand"
-      :tagColors="tagColors"
-    ></XavierMansion>
+      :maxSelection="card.name == 'Moira MacTaggert' ? 1 : 3"
+    ></TagSelect>
     <Vision
       v-if="card.name == 'Vision'"
       :hand="hand"
@@ -78,10 +75,11 @@
 </template>
 
 <script setup lang="ts">
-import { Card } from "@/lib/types";
-import XavierMansion from "./SpecialCards/XavierMansion.vue";
+import { Card, CardType, Tag } from "@/lib/types";
 import Vision from "./SpecialCards/Vision.vue";
-import MoiraMacTaggert from "./SpecialCards/MoiraMacTaggert.vue";
+import TagSelect from "./TagSelect.vue";
+import { computed } from "vue";
+import { Heroes } from "@/lib/HeroCards";
 
 const props = defineProps<{
   hand: Card[];
@@ -107,6 +105,24 @@ const tagColors: { [key: string]: string } = {
   wakanda: "#682329",
   worthy: "#968359",
 };
+
+const mutantHeroTags = computed(() => {
+  const tags: { [key: string]: Tag[] } = {};
+
+  Heroes.forEach((hero) => {
+    if (hero.tags.base.includes(Tag.MUTANT)) {
+      tags[hero.name] = hero.tags.base;
+    }
+  });
+
+  return tags;
+});
+
+const mutantHeroCards = computed(() => {
+  return props.hand.filter((card) => {
+    return card.type == CardType.HERO && card.tags.base.includes(Tag.MUTANT);
+  });
+});
 </script>
 <style scoped>
 @import "../assets/variables.css";

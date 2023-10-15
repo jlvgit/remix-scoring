@@ -1,108 +1,104 @@
 <template>
   <v-list v-model:opened="open" width="300" compact>
-    <v-list-group value="Ally" class="ally-group">
-      <template v-slot:activator="{ props }">
-        <v-list-item v-bind="props" title="Ally"></v-list-item>
-      </template>
+    <v-expansion-panels variant="accordion">
+      <v-expansion-panel title="Ally" class="ally-group">
+        <v-expansion-panel-text>
+          <v-list-item
+            v-for="card in Allies"
+            :key="card.name"
+            :value="card"
+            density="compact"
+            ripple
+            @click="addToHand(card)"
+            >{{ card.name }}</v-list-item
+          >
+        </v-expansion-panel-text>
+      </v-expansion-panel>
 
-      <v-list-item
-        v-for="card in Allies"
-        :key="card.name"
-        :value="card"
-        ripple
-        @click="addToHand(card)"
-        >{{ card.name }}</v-list-item
-      >
-    </v-list-group>
+      <v-expansion-panel title="Condition" class="condition-group">
+        <v-expansion-panel-text>
+          <v-list-item
+            v-for="card in Condition"
+            :key="card.name"
+            :value="card"
+            density="compact"
+            ripple
+            @click="addToHand(card)"
+            >{{ card.name }}</v-list-item
+          >
+        </v-expansion-panel-text>
+      </v-expansion-panel>
 
-    <v-list-group value="Condition" class="condition-group">
-      <template v-slot:activator="{ props }">
-        <v-list-item v-bind="props" title="Condition"></v-list-item>
-      </template>
+      <v-expansion-panel title="Equipment" class="equipment-group">
+        <v-expansion-panel-text>
+          <v-list-item
+            v-for="card in Equipment"
+            :key="card.name"
+            :value="card"
+            density="compact"
+            ripple
+            @click="addToHand(card)"
+            >{{ card.name }}</v-list-item
+          >
+        </v-expansion-panel-text>
+      </v-expansion-panel>
 
-      <v-list-item
-        v-for="card in Condition"
-        :key="card.name"
-        :value="card"
-        ripple
-        @click="addToHand(card)"
-        >{{ card.name }}</v-list-item
-      >
-    </v-list-group>
+      <v-expansion-panel title="Hero" class="hero-group">
+        <v-expansion-panel-text>
+          <v-list-item
+            v-for="card in Heroes"
+            :key="card.name"
+            :value="card"
+            density="compact"
+            ripple
+            @click="addToHand(card)"
+            >{{ card.name }}</v-list-item
+          >
+        </v-expansion-panel-text>
+      </v-expansion-panel>
 
-    <v-list-group value="Equipment" class="equipment-group">
-      <template v-slot:activator="{ props }">
-        <v-list-item v-bind="props" title="Equipment"></v-list-item>
-      </template>
+      <v-expansion-panel title="Location" class="location-group">
+        <v-expansion-panel-text>
+          <v-list-item
+            v-for="card in Locations"
+            :key="card.name"
+            :value="card"
+            density="compact"
+            ripple
+            @click="addToHand(card)"
+            >{{ card.name }}</v-list-item
+          >
+        </v-expansion-panel-text>
+      </v-expansion-panel>
 
-      <v-list-item
-        v-for="card in Equipment"
-        :key="card.name"
-        :value="card"
-        ripple
-        @click="addToHand(card)"
-        >{{ card.name }}</v-list-item
-      >
-    </v-list-group>
+      <v-expansion-panel title="Maneuver" class="maneuver-group">
+        <v-expansion-panel-text>
+          <v-list-item
+            v-for="card in Maneuvers"
+            :key="card.name"
+            :value="card"
+            density="compact"
+            ripple
+            @click="addToHand(card)"
+            >{{ card.name }}</v-list-item
+          >
+        </v-expansion-panel-text>
+      </v-expansion-panel>
 
-    <v-list-group value="Hero" class="hero-group">
-      <template v-slot:activator="{ props }">
-        <v-list-item v-bind="props" title="Hero"></v-list-item>
-      </template>
-
-      <v-list-item
-        v-for="card in Heroes"
-        :key="card.name"
-        :value="card"
-        ripple
-        @click="addToHand(card)"
-        >{{ card.name }}</v-list-item
-      >
-    </v-list-group>
-
-    <v-list-group value="Location" class="location-group">
-      <template v-slot:activator="{ props }">
-        <v-list-item v-bind="props" title="Location"></v-list-item>
-      </template>
-
-      <v-list-item
-        v-for="card in Locations"
-        :key="card.name"
-        :value="card"
-        ripple
-        @click="addToHand(card)"
-        >{{ card.name }}</v-list-item
-      >
-    </v-list-group>
-
-    <v-list-group value="Maneuver" class="maneuver-group">
-      <template v-slot:activator="{ props }">
-        <v-list-item v-bind="props" title="Maneuver"></v-list-item>
-      </template>
-
-      <v-list-item
-        v-for="card in Maneuvers"
-        :key="card.name"
-        :value="card"
-        ripple
-        @click="addToHand(card)"
-        >{{ card.name }}</v-list-item
-      >
-    </v-list-group>
-    <v-list-group value="Villain" class="villain-group">
-      <template v-slot:activator="{ props }">
-        <v-list-item v-bind="props" title="Villain"></v-list-item>
-      </template>
-
-      <v-list-item
-        v-for="card in Villains"
-        :key="card.name"
-        :value="card"
-        ripple
-        @click="addToHand(card)"
-        >{{ card.name }}</v-list-item
-      >
-    </v-list-group>
+      <v-expansion-panel title="Villain" class="villain-group">
+        <v-expansion-panel-text>
+          <v-list-item
+            v-for="card in Villains"
+            :key="card.name"
+            :value="card"
+            density="compact"
+            ripple
+            @click="addToHand(card)"
+            >{{ card.name }}</v-list-item
+          >
+        </v-expansion-panel-text>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </v-list>
 </template>
 
