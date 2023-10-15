@@ -23,8 +23,14 @@ export const useCardStore = defineStore("cards", () => {
   function addToHand(card: Card) {
     if (hand.value.includes(card)) {
       hand.value.splice(hand.value.indexOf(card), 1);
+      if (card.onRemove) {
+        card.onRemove(hand.value);
+      }
     } else if (hand.value.length < 7) {
       hand.value.push(card);
+      if (card.onAdd) {
+        card.onAdd(hand.value);
+      }
     }
   }
 

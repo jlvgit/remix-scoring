@@ -155,6 +155,23 @@ export const Maneuvers: Card[] = [
         },
       ];
     },
+    onAdd: (cards: Card[]) => {
+      cards.forEach((card) => {
+        if (card.tags.base.includes(Tag.TECH)) {
+          card.tags.bonus.push(Tag.INTEL);
+        }
+      });
+    },
+    onRemove: (cards: Card[]) => {
+      cards.forEach((card) => {
+        if (card.tags.base.includes(Tag.TECH)) {
+          const oldIndex = card.tags.bonus.findLastIndex(
+            (t) => t === Tag.INTEL
+          );
+          card.tags.bonus.splice(oldIndex, 1);
+        }
+      });
+    },
   },
   {
     name: "Throw Car",

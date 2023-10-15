@@ -41,13 +41,6 @@ export const Locations: Card[] = [
       base: [Tag.TECH, Tag.WAKANDA, Tag.URBAN],
       bonus: [],
       combined: [Tag.TECH, Tag.WAKANDA, Tag.URBAN],
-      conditional: (cards: Card[]) => {
-        const names = getHandInfo(cards).names;
-
-        return names.includes("Hack In")
-          ? [Tag.TECH, Tag.WAKANDA, Tag.URBAN, Tag.INTEL]
-          : [Tag.TECH, Tag.WAKANDA, Tag.URBAN];
-      },
     },
     bonusPower: (cards: Card[]) => {
       const otherWakanda = getOtherCardsWithTag(

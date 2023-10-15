@@ -27,13 +27,6 @@ export const Heroes: Card[] = [
       base: [Tag.TECH, Tag.AGILITY, Tag.MUTANT],
       bonus: [],
       combined: [Tag.TECH, Tag.AGILITY, Tag.MUTANT],
-      conditional: (cards: Card[]) => {
-        const names = getHandInfo(cards).names;
-
-        return names.includes("Hack In")
-          ? [Tag.TECH, Tag.AGILITY, Tag.MUTANT, Tag.INTEL]
-          : [Tag.TECH, Tag.AGILITY, Tag.MUTANT];
-      },
     },
   },
   {
@@ -82,9 +75,6 @@ export const Heroes: Card[] = [
       bonus: [],
       combined: [Tag.GAMMA],
       conditional: (cards: Card[]) => {
-        const names = getHandInfo(cards).names;
-        const hasHackIn = names.includes("Hack In");
-
         const otherGammas = getOtherCardsWithTag(
           cards,
           Tag.GAMMA,
@@ -94,7 +84,7 @@ export const Heroes: Card[] = [
         if (otherGammas.length > 0) {
           return [Tag.GAMMA, Tag.STRENGTH, Tag.STRENGTH, Tag.STRENGTH];
         } else {
-          return hasHackIn ? [Tag.TECH, Tag.INTEL] : [Tag.TECH, Tag.GAMMA];
+          return [Tag.TECH, Tag.GAMMA];
         }
       },
     },
@@ -191,13 +181,6 @@ export const Heroes: Card[] = [
       base: [Tag.TECH, Tag.FLIGHT, Tag.RANGE],
       bonus: [],
       combined: [Tag.TECH, Tag.FLIGHT, Tag.RANGE],
-      conditional: (cards: Card[]) => {
-        const names = getHandInfo(cards).names;
-
-        return names.includes("Hack In")
-          ? [Tag.TECH, Tag.FLIGHT, Tag.RANGE, Tag.INTEL]
-          : [Tag.TECH, Tag.FLIGHT, Tag.RANGE];
-      },
     },
   },
   {
@@ -209,13 +192,6 @@ export const Heroes: Card[] = [
       base: [Tag.TECH, Tag.RANGE, Tag.RANGE],
       bonus: [],
       combined: [Tag.TECH, Tag.RANGE, Tag.RANGE],
-      conditional: (cards: Card[]) => {
-        const names = getHandInfo(cards).names;
-
-        return names.includes("Hack In")
-          ? [Tag.TECH, Tag.RANGE, Tag.RANGE, Tag.INTEL]
-          : [Tag.TECH, Tag.RANGE, Tag.RANGE];
-      },
     },
   },
   {
@@ -296,13 +272,6 @@ export const Heroes: Card[] = [
       base: [Tag.TECH, Tag.MUTANT],
       bonus: [],
       combined: [Tag.TECH, Tag.MUTANT],
-      conditional: (cards: Card[]) => {
-        const names = getHandInfo(cards).names;
-
-        return names.includes("Hack In")
-          ? [Tag.TECH, Tag.MUTANT, Tag.INTEL]
-          : [Tag.TECH, Tag.MUTANT];
-      },
     },
     bonusPower: (cards: Card[]) => {
       const types = getHandInfo(cards).types;
@@ -426,15 +395,9 @@ export const Heroes: Card[] = [
       combined: [Tag.TECH, Tag.RANGE],
       conditional: (cards: Card[]) => {
         const tags = getHandInfo(cards).tags;
-        const names = getHandInfo(cards).names;
-        const hasHackIn = names.includes("Hack In");
 
         return tags[Tag.INTEL] >= 2
-          ? hasHackIn
-            ? [Tag.TECH, Tag.STRENGTH, Tag.FLIGHT, Tag.RANGE, Tag.INTEL]
-            : [Tag.TECH, Tag.STRENGTH, Tag.FLIGHT, Tag.RANGE]
-          : hasHackIn
-          ? [Tag.TECH, Tag.RANGE, Tag.INTEL]
+          ? [Tag.TECH, Tag.STRENGTH, Tag.FLIGHT, Tag.RANGE]
           : [Tag.TECH, Tag.RANGE];
       },
     },

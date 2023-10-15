@@ -11,6 +11,8 @@ export type Card = {
   cardText: string;
   bonusPower?: (cards: Card[]) => CardScore[];
   blanked?: (cards: Card[]) => boolean;
+  onAdd?: (cards: Card[]) => void;
+  onRemove?: (cards: Card[]) => void;
 };
 
 export type CardScore = {

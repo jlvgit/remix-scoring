@@ -22,13 +22,6 @@ export const Allies: Card[] = [
       base: [Tag.TECH, Tag.MUTANT],
       bonus: [],
       combined: [Tag.TECH, Tag.MUTANT],
-      conditional: (cards: Card[]) => {
-        const names = getHandInfo(cards).names;
-
-        return names.includes("Hack In")
-          ? [Tag.TECH, Tag.MUTANT, Tag.INTEL]
-          : [Tag.TECH, Tag.MUTANT];
-      },
     },
     bonusPower: (cards: Card[]) => {
       const types = getHandInfo(cards).types;
@@ -73,13 +66,6 @@ export const Allies: Card[] = [
       base: [Tag.TECH, Tag.RANGE, Tag.GAMMA],
       bonus: [],
       combined: [Tag.TECH, Tag.RANGE, Tag.GAMMA],
-      conditional: (cards: Card[]) => {
-        const names = getHandInfo(cards).names;
-
-        return names.includes("Hack In")
-          ? [Tag.TECH, Tag.RANGE, Tag.GAMMA, Tag.INTEL]
-          : [Tag.TECH, Tag.RANGE, Tag.GAMMA];
-      },
     },
   },
   {
@@ -91,13 +77,6 @@ export const Allies: Card[] = [
       base: [Tag.TECH, Tag.WORTHY],
       bonus: [],
       combined: [Tag.TECH, Tag.WORTHY],
-      conditional: (cards: Card[]) => {
-        const names = getHandInfo(cards).names;
-
-        return names.includes("Hack In")
-          ? [Tag.TECH, Tag.WORTHY, Tag.INTEL]
-          : [Tag.TECH, Tag.WORTHY];
-      },
     },
     bonusPower: (cards: Card[]) => {
       const names = getHandInfo(cards).names;
@@ -144,13 +123,6 @@ export const Allies: Card[] = [
       base: [Tag.TECH, Tag.INTEL],
       bonus: [],
       combined: [Tag.TECH, Tag.INTEL],
-      conditional: (cards: Card[]) => {
-        const names = getHandInfo(cards).names;
-
-        return names.includes("Hack In")
-          ? [Tag.TECH, Tag.INTEL, Tag.INTEL]
-          : [Tag.TECH, Tag.INTEL];
-      },
     },
   },
 ];
