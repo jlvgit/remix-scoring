@@ -141,6 +141,13 @@ export const Villains: Card[] = [
     },
   },
   {
+    name: "Juggernaut",
+    type: CardType.VILLAIN,
+    basePower: 16,
+    cardText: "Blank one LOCATION",
+    tags: { base: [Tag.MUTANT], bonus: [], combined: [Tag.MUTANT] },
+  },
+  {
     name: "Kingpin",
     type: CardType.VILLAIN,
     basePower: 13,
@@ -162,6 +169,28 @@ export const Villains: Card[] = [
               : `No LOCATION with URBAN tag in hand.`,
         },
       ];
+    },
+  },
+  {
+    name: "Magneto",
+    type: CardType.VILLAIN,
+    basePower: 17,
+    cardText:
+      "Blank all EQUIPMENT and ignore all TECH. (cards with TECH keep their other details)",
+    tags: { base: [Tag.BOSS], bonus: [], combined: [Tag.BOSS] },
+    onAdd: (cards: Card[]) => {
+      cards.forEach((card) => {
+        if (card.type === CardType.EQUIPMENT) {
+          card.forceBlank = true;
+        }
+      });
+    },
+    onRemove: (cards: Card[]) => {
+      cards.forEach((card) => {
+        if (card.type === CardType.EQUIPMENT) {
+          card.forceBlank = false;
+        }
+      });
     },
   },
   {

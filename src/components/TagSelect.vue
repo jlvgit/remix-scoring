@@ -70,27 +70,3 @@ const addTag = (card: Card, tag: Tag) => {
   }
 };
 </script>
-<style scoped>
-@import "../assets/variables.css";
-.ally {
-  border: 3px solid var(--ally);
-}
-.hero {
-  border: 3px solid var(--hero);
-}
-.condition {
-  border: 3px solid var(--condition);
-}
-.equipment {
-  border: 3px solid var(--equipment);
-}
-.location {
-  border: 3px solid var(--location);
-}
-.maneuver {
-  border: 3px solid var(--maneuver);
-}
-.villain {
-  border: 3px solid var(--villain);
-}
-</style>

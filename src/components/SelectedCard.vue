@@ -59,27 +59,42 @@
         </div>
       </v-card-item>
     </v-card>
+    <CardTypeSelect
+      v-if="card.name == 'Juggernaut' || card.name == 'Hidden Lair'"
+      :selectionCards="hand"
+      :selectionType="
+        card.name == 'Hidden Lair' ? CardType.VILLAIN : CardType.LOCATION
+      "
+      :colors="cardColors"
+    />
     <TagSelect
       v-if="card.name == 'Moira MacTaggert' || card.name == 'Xavier Mansion'"
       :defaultTags="mutantHeroTags"
       :selectionCards="mutantHeroCards"
       :tagColors="tagColors"
       :maxSelection="card.name == 'Moira MacTaggert' ? 1 : 3"
-    ></TagSelect>
-    <Vision
-      v-if="card.name == 'Vision'"
-      :hand="hand"
-      :tagColors="tagColors"
-    ></Vision>
+    />
+    <Vision v-if="card.name == 'Vision'" :hand="hand" :tagColors="tagColors" />
+    <XJet
+      v-if="card.name == 'X-Jet'"
+      :selectionCards="hand"
+      :maxSelection="1"
+    />
   </v-col>
 </template>
 
 <script setup lang="ts">
-import { Card, CardType, Tag } from "@/lib/types";
-import Vision from "./SpecialCards/Vision.vue";
-import TagSelect from "./TagSelect.vue";
 import { computed } from "vue";
+
+import { Card, CardType, Tag } from "@/lib/types";
 import { Heroes } from "@/lib/HeroCards";
+
+// Components
+import HiddenLair from "./SpecialCards/HiddenLair.vue";
+import TagSelect from "./TagSelect.vue";
+import CardTypeSelect from "./CardTypeSelect.vue";
+import Vision from "./SpecialCards/Vision.vue";
+import XJet from "./SpecialCards/XJet.vue";
 
 const props = defineProps<{
   hand: Card[];
@@ -89,6 +104,16 @@ const props = defineProps<{
 const emit = defineEmits<{
   (event: "toggle-card", card: Card): void;
 }>();
+
+const cardColors: { [key: string]: string } = {
+  ally: "#6c47a6",
+  hero: "#00a7ea",
+  condition: "#009344",
+  equipment: "#565c6d",
+  location: "#f48a20",
+  maneuver: "#ec0b8c",
+  villain: "#ac082a",
+};
 
 const tagColors: { [key: string]: string } = {
   agility: "#f68b1f",

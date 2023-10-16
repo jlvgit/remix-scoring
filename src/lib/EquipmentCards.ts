@@ -124,5 +124,26 @@ export const Equipment: Card[] = [
       bonus: [],
       combined: [],
     },
+    onAdd: (cards: Card[]) => {
+      cards.forEach((card) => {
+        if (card.type === CardType.HERO || card.type === CardType.ALLY) {
+          if (!card.tags.base.includes(Tag.FLIGHT)) {
+            card.tags.bonus.push(Tag.FLIGHT);
+          }
+        }
+      });
+    },
+    onRemove: (cards: Card[]) => {
+      cards.forEach((card) => {
+        if (card.type === CardType.HERO || card.type === CardType.ALLY) {
+          if (!card.tags.base.includes(Tag.FLIGHT)) {
+            const oldIndex = card.tags.bonus.findLastIndex(
+              (t) => t === Tag.FLIGHT
+            );
+            card.tags.bonus.splice(oldIndex, 1);
+          }
+        }
+      });
+    },
   },
 ];

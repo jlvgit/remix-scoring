@@ -131,6 +131,13 @@ export const Locations: Card[] = [
     },
   },
   {
+    name: "Hidden Lair",
+    type: CardType.LOCATION,
+    basePower: 16,
+    cardText: "Blank a VILLAIN unless with two or more INTEL",
+    tags: { base: [], bonus: [], combined: [] },
+  },
+  {
     name: "High Speed Chase",
     type: CardType.LOCATION,
     basePower: 0,

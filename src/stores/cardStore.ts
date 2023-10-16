@@ -67,11 +67,16 @@ export const useCardStore = defineStore("cards", () => {
     // }
 
     hand.forEach((card: Card) => {
+      let blank = false;
       if (card.blanked) {
-        card.blanked(hand)
-          ? blankedCardsMap.value.set(card.name, card)
-          : blankedCardsMap.value.delete(card.name);
+        blank = card.blanked(hand);
       }
+      if (card.forceBlank) {
+        blank = true;
+      }
+      blank
+        ? blankedCardsMap.value.set(card.name, card)
+        : blankedCardsMap.value.delete(card.name);
     });
 
     // remove blanked cards from the hand for scoring
