@@ -306,6 +306,18 @@ export const Heroes: Card[] = [
     },
   },
   {
+    name: "Shuri",
+    type: CardType.HERO,
+    basePower: 2,
+    cardText:
+      "Shuri and one other HERO or ALLY may each add one of STRENGTH, RANGE, or AGILITY.",
+    tags: {
+      base: [Tag.FLIGHT, Tag.RANGE, Tag.MUTANT],
+      bonus: [],
+      combined: [Tag.FLIGHT, Tag.RANGE, Tag.MUTANT],
+    },
+  },
+  {
     name: "Spider-Man",
     type: CardType.HERO,
     basePower: 5,

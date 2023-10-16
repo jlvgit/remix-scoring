@@ -267,6 +267,14 @@ export const Villains: Card[] = [
     },
   },
   {
+    name: "Selene",
+    type: CardType.VILLAIN,
+    basePower: 25,
+    cardText:
+      "Blank any HERO or ALLY in your hand. Subtract its base power from your total score.",
+    tags: { base: [Tag.MUTANT], bonus: [], combined: [Tag.MUTANT] },
+  },
+  {
     name: "Sentinels",
     type: CardType.VILLAIN,
     basePower: 12,

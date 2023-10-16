@@ -10,6 +10,7 @@ import { Card, CardType, Tag } from "@/lib/types";
 
 export const useCardStore = defineStore("cards", () => {
   const hand = ref([] as Card[]);
+  const penaltyPoints = ref(0);
   const blankedCardsMap = ref(new Map<string, Card>());
 
   function getHand(): Card[] {
@@ -79,9 +80,10 @@ export const useCardStore = defineStore("cards", () => {
         : blankedCardsMap.value.delete(card.name);
     });
 
-    // remove blanked cards from the hand for scoring
+    // Remove blanked cards from the hand for scoring
     hand = hand.filter((card) => !blankedCards.includes(card));
 
+    // Gather all tags for each card
     hand.forEach((card: Card) => {
       let allTags: Tag[] = card.tags.combined;
       if (card.tags.conditional) {
@@ -93,6 +95,7 @@ export const useCardStore = defineStore("cards", () => {
       card.tags.combined = allTags;
     });
 
+    // Score the hand
     hand.forEach((card: Card) => {
       if (blankedCardsMap.value.has(card.name)) {
         return;
@@ -105,7 +108,9 @@ export const useCardStore = defineStore("cards", () => {
       }
     });
 
-    // add blanked cards back into the hand
+    score += penaltyPoints.value;
+
+    // Add blanked cards back into the hand
     hand = hand.concat(blankedCards);
 
     return score;
@@ -123,6 +128,7 @@ export const useCardStore = defineStore("cards", () => {
     hand,
     handInfo,
     blankedCardsMap,
+    penaltyPoints,
     getHand,
     resetHand,
     addToHand,

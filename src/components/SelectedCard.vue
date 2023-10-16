@@ -60,19 +60,23 @@
       </v-card-item>
     </v-card>
     <CardTypeSelect
-      v-if="card.name == 'Juggernaut' || card.name == 'Hidden Lair'"
+      v-if="displayCardTypeSelected[card.name]"
       :selectionCards="hand"
-      :selectionType="
-        card.name == 'Hidden Lair' ? CardType.VILLAIN : CardType.LOCATION
-      "
+      :selectionTypes="displayCardTypeSelected[card.name]"
       :colors="cardColors"
+      :parentCard="card"
+    />
+    <Shuri
+      v-if="card.name == 'Shuri'"
+      :selectionCards="hand"
+      :tagColors="tagColors"
     />
     <TagSelect
-      v-if="card.name == 'Moira MacTaggert' || card.name == 'Xavier Mansion'"
+      v-if="displayTagSelect[card.name]"
       :defaultTags="mutantHeroTags"
       :selectionCards="mutantHeroCards"
       :tagColors="tagColors"
-      :maxSelection="card.name == 'Moira MacTaggert' ? 1 : 3"
+      :maxSelection="displayTagSelect[card.name]"
     />
     <Vision v-if="card.name == 'Vision'" :hand="hand" :tagColors="tagColors" />
     <XJet
@@ -88,11 +92,12 @@ import { computed } from "vue";
 
 import { Card, CardType, Tag } from "@/lib/types";
 import { Heroes } from "@/lib/HeroCards";
+import { Allies } from "@/lib/AllyCards";
 
 // Components
-import HiddenLair from "./SpecialCards/HiddenLair.vue";
-import TagSelect from "./TagSelect.vue";
 import CardTypeSelect from "./CardTypeSelect.vue";
+import TagSelect from "./TagSelect.vue";
+import Shuri from "./SpecialCards/Shuri.vue";
 import Vision from "./SpecialCards/Vision.vue";
 import XJet from "./SpecialCards/XJet.vue";
 
@@ -104,6 +109,17 @@ const props = defineProps<{
 const emit = defineEmits<{
   (event: "toggle-card", card: Card): void;
 }>();
+
+const displayCardTypeSelected: { [key: string]: CardType[] } = {
+  "Hidden Lair": [CardType.VILLAIN],
+  Juggernaut: [CardType.LOCATION],
+  Selene: [CardType.HERO, CardType.ALLY],
+};
+
+const displayTagSelect: { [key: string]: number } = {
+  "Moira MacTaggert": 1,
+  "Xavier Mansion": 3,
+};
 
 const cardColors: { [key: string]: string } = {
   ally: "#6c47a6",
