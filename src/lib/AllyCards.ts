@@ -24,7 +24,7 @@ export const Allies: Card[] = [
       combined: [Tag.TECH, Tag.MUTANT],
     },
     bonusPower: (cards: Card[]) => {
-      const types = getHandInfo(cards).types;
+      const types = getHandInfo().types;
 
       return [
         {
@@ -45,7 +45,7 @@ export const Allies: Card[] = [
       combined: [Tag.INTEL, Tag.ASGARD],
     },
     bonusPower: (cards: Card[]) => {
-      const names = getHandInfo(cards).names;
+      const names = getHandInfo().names;
 
       return [
         {
@@ -79,7 +79,7 @@ export const Allies: Card[] = [
       combined: [Tag.TECH, Tag.WORTHY],
     },
     bonusPower: (cards: Card[]) => {
-      const names = getHandInfo(cards).names;
+      const names = getHandInfo().names;
 
       return [
         {
@@ -102,7 +102,7 @@ export const Allies: Card[] = [
       combined: [Tag.FLIGHT, Tag.RANGE],
     },
     bonusPower: (cards: Card[]) => {
-      const names = getHandInfo(cards).names;
+      const names = getHandInfo().names;
 
       return [
         {

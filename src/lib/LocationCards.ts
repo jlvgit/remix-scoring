@@ -68,7 +68,7 @@ export const Locations: Card[] = [
       combined: [],
     },
     bonusPower: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
+      const tags = getHandInfo().tags;
 
       const tech = tags[Tag.TECH] || 0;
       const agility = tags[Tag.AGILITY] || 0;
@@ -76,7 +76,7 @@ export const Locations: Card[] = [
       return [
         {
           points: tech * 5,
-          reason: `+5 for each TECH (${tech}.`,
+          reason: `+5 for each TECH (${tech}).`,
         },
         {
           points: agility * 5,
@@ -92,7 +92,7 @@ export const Locations: Card[] = [
     cardText: "+4 for for each STRENGTH and for each FLIGHT",
     tags: { base: [Tag.URBAN], bonus: [], combined: [Tag.URBAN] },
     bonusPower: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
+      const tags = getHandInfo().tags;
 
       const strength = tags[Tag.STRENGTH] || 0;
       const flight = tags[Tag.FLIGHT] || 0;
@@ -144,7 +144,7 @@ export const Locations: Card[] = [
     cardText: "+3 for each AGILITY, for each FLIGHT, and for each RANGE",
     tags: { base: [Tag.URBAN], bonus: [], combined: [Tag.URBAN] },
     bonusPower: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
+      const tags = getHandInfo().tags;
 
       const agility = tags[Tag.AGILITY] || 0;
       const flight = tags[Tag.FLIGHT] || 0;
@@ -177,7 +177,7 @@ export const Locations: Card[] = [
       combined: [],
     },
     bonusPower: (cards: Card[]) => {
-      const types = getHandInfo(cards).types;
+      const types = getHandInfo().types;
 
       return [
         {
@@ -194,7 +194,7 @@ export const Locations: Card[] = [
     cardText: "+3 for each INTEL",
     tags: { base: [Tag.URBAN], bonus: [], combined: [Tag.URBAN] },
     bonusPower: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
+      const tags = getHandInfo().tags;
 
       return [
         {
@@ -231,7 +231,7 @@ export const Locations: Card[] = [
     cardText: "+4 for each STRENGTH and each TECH",
     tags: { base: [Tag.URBAN], bonus: [], combined: [Tag.URBAN] },
     bonusPower: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
+      const tags = getHandInfo().tags;
 
       const strength = tags[Tag.STRENGTH] || 0;
       const tech = tags[Tag.TECH] || 0;
@@ -255,7 +255,7 @@ export const Locations: Card[] = [
     cardText: "+4 for for each AGILITY and for each FLIGHT",
     tags: { base: [Tag.URBAN], bonus: [], combined: [Tag.URBAN] },
     bonusPower: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
+      const tags = getHandInfo().tags;
 
       const agility = tags[Tag.AGILITY] || 0;
       const flight = tags[Tag.FLIGHT] || 0;

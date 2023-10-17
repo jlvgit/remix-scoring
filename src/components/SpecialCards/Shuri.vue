@@ -43,7 +43,12 @@
           (card.type == CardType.HERO || card.type == CardType.ALLY) &&
           card.name != 'Shuri'
         "
-        :disabled="addedTags.size == 1 && !addedTags.has(card.name)"
+        :disabled="
+          (addedTags.size == 2 &&
+            !addedTags.has(card.name) &&
+            addedTags.has('Shuri')) ||
+          (addedTags.size == 1 && !addedTags.has('Shuri'))
+        "
         flat
       >
         <v-card-subtitle class="text-wrap">

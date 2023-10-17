@@ -12,6 +12,7 @@ export const useCardStore = defineStore("cards", () => {
   const hand = ref([] as Card[]);
   const penaltyPoints = ref(0);
   const blankedCardsMap = ref(new Map<string, Card>());
+  const blankedTags = ref<Set<Tag>>(new Set());
 
   function getHand(): Card[] {
     return hand.value.sort((a, b) => a.name.localeCompare(b.name));
@@ -40,9 +41,15 @@ export const useCardStore = defineStore("cards", () => {
     const tags: Record<string, number> = {};
 
     hand.value.forEach((card: Card) => {
+      if (blankedCardsMap.value.has(card.name)) {
+        return;
+      }
       types[card.type] ? types[card.type]++ : (types[card.type] = 1);
 
       card.tags.combined.forEach((tag) => {
+        if (blankedTags.value.has(tag)) {
+          return;
+        }
         tags[tag] ? tags[tag]++ : (tags[tag] = 1);
       });
     });
@@ -92,7 +99,9 @@ export const useCardStore = defineStore("cards", () => {
         allTags = card.tags.base.concat(card.tags.bonus);
       }
 
-      card.tags.combined = allTags;
+      card.tags.combined = allTags.filter((tag) => {
+        return !blankedTags.value.has(tag);
+      });
     });
 
     // Score the hand
@@ -129,6 +138,7 @@ export const useCardStore = defineStore("cards", () => {
     handInfo,
     blankedCardsMap,
     penaltyPoints,
+    blankedTags,
     getHand,
     resetHand,
     addToHand,

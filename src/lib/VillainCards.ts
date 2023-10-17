@@ -1,3 +1,4 @@
+import { useCardStore } from "@/stores/cardStore";
 import { Card, CardType, Tag } from "./types";
 import {
   getHandInfo,
@@ -13,7 +14,7 @@ export const Villains: Card[] = [
     cardText: "-20 unless with two or more STRENGTH",
     tags: { base: [Tag.GAMMA], bonus: [], combined: [Tag.GAMMA] },
     bonusPower: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
+      const tags = getHandInfo().tags;
 
       return [
         {
@@ -33,7 +34,7 @@ export const Villains: Card[] = [
     cardText: "-3 for each HERO",
     tags: { base: [Tag.BOSS], bonus: [], combined: [Tag.BOSS] },
     bonusPower: (cards: Card[]) => {
-      const types = getHandInfo(cards).types;
+      const types = getHandInfo().types;
 
       return [
         {
@@ -54,7 +55,7 @@ export const Villains: Card[] = [
       combined: [],
     },
     bonusPower: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
 
       const hasUrbanLocation = hasCardWithTypeAndTag(
         cards,
@@ -109,7 +110,7 @@ export const Villains: Card[] = [
       combined: [],
     },
     bonusPower: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
+      const tags = getHandInfo().tags;
 
       return [
         {
@@ -184,6 +185,8 @@ export const Villains: Card[] = [
           card.forceBlank = true;
         }
       });
+      const store = useCardStore();
+      store.blankedTags.add(Tag.TECH);
     },
     onRemove: (cards: Card[]) => {
       cards.forEach((card) => {
@@ -191,6 +194,8 @@ export const Villains: Card[] = [
           card.forceBlank = false;
         }
       });
+      const store = useCardStore();
+      store.blankedTags.delete(Tag.TECH);
     },
   },
   {
@@ -201,7 +206,7 @@ export const Villains: Card[] = [
       "-20 unless with two or more INTEL or with any three cards sharing the same tag",
     tags: { base: [Tag.MUTANT], bonus: [], combined: [Tag.MUTANT] },
     bonusPower: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
 
       const intelCount = handInfo.tags[Tag.INTEL] || 0;
 
@@ -249,7 +254,7 @@ export const Villains: Card[] = [
       combined: [],
     },
     bonusPower: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
+      const tags = getHandInfo().tags;
 
       const flightCount = tags[Tag.FLIGHT] || 0;
       const rangeCount = tags[Tag.RANGE] || 0;
@@ -285,7 +290,7 @@ export const Villains: Card[] = [
       combined: [],
     },
     bonusPower: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
+      const tags = getHandInfo().tags;
 
       const mutantCount = tags[Tag.MUTANT] || 0;
 
@@ -322,7 +327,7 @@ export const Villains: Card[] = [
       combined: [Tag.GAMMA, Tag.BOSS],
     },
     bonusPower: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
+      const tags = getHandInfo().tags;
 
       const gammaCount = getOtherCardsWithTag(cards, Tag.GAMMA, "The Leader");
       const strengthCount = tags[Tag.STRENGTH] || 0;
@@ -369,7 +374,7 @@ export const Villains: Card[] = [
     cardText: "-20 unless with two or more TECH",
     tags: { base: [Tag.BOSS], bonus: [], combined: [Tag.BOSS] },
     bonusPower: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
+      const tags = getHandInfo().tags;
 
       return [
         {

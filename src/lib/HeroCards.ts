@@ -205,7 +205,7 @@ export const Heroes: Card[] = [
       combined: [Tag.INTEL, Tag.MUTANT],
     },
     bonusPower: (cards: Card[]) => {
-      const names = getHandInfo(cards).names;
+      const names = getHandInfo().names;
 
       const hasCerebro = names.includes("Cerebro");
       const hasXavierMansion = names.includes("Xavier Mansion");
@@ -274,7 +274,7 @@ export const Heroes: Card[] = [
       combined: [Tag.TECH, Tag.MUTANT],
     },
     bonusPower: (cards: Card[]) => {
-      const types = getHandInfo(cards).types;
+      const types = getHandInfo().types;
 
       return [
         {
@@ -369,7 +369,7 @@ export const Heroes: Card[] = [
       bonus: [],
       combined: [Tag.STRENGTH, Tag.ASGARD, Tag.WORTHY],
       conditional: (cards: Card[]) => {
-        const info = getHandInfo(cards);
+        const info = getHandInfo();
 
         const allyCount = info.types[CardType.ALLY] || 0;
         const hasMjolnir = info.names.includes("Mjolnir");
@@ -380,7 +380,7 @@ export const Heroes: Card[] = [
       },
     },
     bonusPower: (cards: Card[]) => {
-      const info = getHandInfo(cards);
+      const info = getHandInfo();
 
       const allyCount = info.types[CardType.ALLY] || 0;
       const hasMjolnir = info.names.includes("Mjolnir");
@@ -406,7 +406,7 @@ export const Heroes: Card[] = [
       bonus: [],
       combined: [Tag.TECH, Tag.RANGE],
       conditional: (cards: Card[]) => {
-        const tags = getHandInfo(cards).tags;
+        const tags = getHandInfo().tags;
 
         return tags[Tag.INTEL] >= 2
           ? [Tag.TECH, Tag.STRENGTH, Tag.FLIGHT, Tag.RANGE]
@@ -414,7 +414,7 @@ export const Heroes: Card[] = [
       },
     },
     bonusPower: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
+      const tags = getHandInfo().tags;
 
       return [
         {

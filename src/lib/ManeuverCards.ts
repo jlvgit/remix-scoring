@@ -1,3 +1,4 @@
+import { useCardStore } from "@/stores/cardStore";
 import { Card, CardType, Tag } from "./types";
 import { getHandInfo, hasCardWithTypeAndTag } from "./utils";
 
@@ -13,13 +14,13 @@ export const Maneuvers: Card[] = [
       combined: [],
     },
     blanked: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
       const hasTaskmaster = handInfo.names.includes("Taskmaster");
 
       return hasTaskmaster ? true : false;
     },
     bonusPower: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
       const rangeCount = handInfo.tags[Tag.RANGE] || 0;
 
       let points = 0;
@@ -51,13 +52,13 @@ export const Maneuvers: Card[] = [
       combined: [],
     },
     blanked: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
       const hasTaskmaster = handInfo.names.includes("Taskmaster");
 
       return hasTaskmaster ? true : false;
     },
     bonusPower: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
       const pairNumbers = [handInfo.tags[Tag.TECH], handInfo.tags[Tag.INTEL]];
 
       const min = Math.min(...pairNumbers);
@@ -82,13 +83,13 @@ export const Maneuvers: Card[] = [
       combined: [],
     },
     blanked: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
       const hasTaskmaster = handInfo.names.includes("Taskmaster");
 
       return hasTaskmaster ? true : false;
     },
     bonusPower: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
       const pairNumbers = [
         handInfo.tags[Tag.INTEL],
         handInfo.tags[Tag.AGILITY],
@@ -116,13 +117,13 @@ export const Maneuvers: Card[] = [
       combined: [],
     },
     blanked: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
       const hasTaskmaster = handInfo.names.includes("Taskmaster");
 
       return hasTaskmaster ? true : false;
     },
     bonusPower: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
       const pairNumbers = [handInfo.tags[Tag.FLIGHT], handInfo.tags[Tag.RANGE]];
 
       const min = Math.min(...pairNumbers);
@@ -147,7 +148,7 @@ export const Maneuvers: Card[] = [
       combined: [Tag.INTEL],
     },
     bonusPower: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
       return [
         {
           points: (handInfo.tags[Tag.TECH] || 0) * 6,
@@ -156,8 +157,10 @@ export const Maneuvers: Card[] = [
       ];
     },
     onAdd: (cards: Card[]) => {
+      const blankedTags = useCardStore().blankedTags;
+
       cards.forEach((card) => {
-        if (card.tags.base.includes(Tag.TECH)) {
+        if (card.tags.base.includes(Tag.TECH) && !blankedTags.has(Tag.TECH)) {
           card.tags.bonus.push(Tag.INTEL);
         }
       });
@@ -180,13 +183,13 @@ export const Maneuvers: Card[] = [
     cardText: "+14 with both STRENGTH and LOCATION with URBAN",
     tags: { base: [Tag.RANGE], bonus: [], combined: [Tag.RANGE] },
     blanked: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
       const hasTaskmaster = handInfo.names.includes("Taskmaster");
 
       return hasTaskmaster ? true : false;
     },
     bonusPower: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
 
       const strengthCount = handInfo.tags[Tag.STRENGTH] || 0;
       const hasUrbanLocation = hasCardWithTypeAndTag(
@@ -217,13 +220,13 @@ export const Maneuvers: Card[] = [
       combined: [],
     },
     blanked: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
       const hasTaskmaster = handInfo.names.includes("Taskmaster");
 
       return hasTaskmaster ? true : false;
     },
     bonusPower: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
       const pairNumbers = [handInfo.tags[Tag.INTEL], handInfo.tags[Tag.RANGE]];
 
       const min = Math.min(...pairNumbers);

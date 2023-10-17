@@ -1,3 +1,4 @@
+import { useCardStore } from "@/stores/cardStore";
 import { Card, CardType, Tag } from "./types";
 
 export function hasCardWithTypeAndTag(cards: Card[], type: CardType, tag: Tag) {
@@ -30,21 +31,7 @@ export function getOtherCardsWithType(
   });
 }
 
-export function getHandInfo(cards: Card[]) {
-  const types: Record<string, number> = {};
-  const tags: Record<string, number> = {};
-
-  cards.forEach((card) => {
-    types[card.type] ? types[card.type]++ : (types[card.type] = 1);
-
-    card.tags.combined.forEach((tag) => {
-      tags[tag] ? tags[tag]++ : (tags[tag] = 1);
-    });
-  });
-
-  return {
-    names: cards.map((card) => card.name),
-    tags,
-    types,
-  };
+export function getHandInfo() {
+  const store = useCardStore();
+  return store.handInfo;
 }

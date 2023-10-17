@@ -18,7 +18,7 @@ export const Equipment: Card[] = [
       combined: [],
     },
     bonusPower: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
+      const tags = getHandInfo().tags;
       return [
         {
           points: (tags[Tag.TECH] || 0) * 9,
@@ -51,7 +51,7 @@ export const Equipment: Card[] = [
       combined: [],
     },
     blanked: (cards: Card[]) => {
-      const tags = getHandInfo(cards).tags;
+      const tags = getHandInfo().tags;
       const worthyCount = tags[Tag.WORTHY] || 0;
 
       return worthyCount > 0 ? false : true;

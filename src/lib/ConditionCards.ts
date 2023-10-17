@@ -13,7 +13,7 @@ export const Condition: Card[] = [
       combined: [],
     },
     bonusPower: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
 
       const heroCount = handInfo.types[CardType.HERO] || 0;
 
@@ -37,7 +37,7 @@ export const Condition: Card[] = [
       combined: [Tag.STRENGTH, Tag.GAMMA],
     },
     bonusPower: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
 
       const heroCount = handInfo.types[CardType.HERO] || 0;
       const allyCount = handInfo.types[CardType.ALLY] || 0;
@@ -67,7 +67,7 @@ export const Condition: Card[] = [
       combined: [Tag.AGILITY],
     },
     blanked: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
 
       const heroCount = handInfo.types[CardType.HERO] || 0;
 
@@ -85,7 +85,7 @@ export const Condition: Card[] = [
       combined: [Tag.INTEL],
     },
     blanked: (cards: Card[]) => {
-      const handInfo = getHandInfo(cards);
+      const handInfo = getHandInfo();
 
       const heroCount = handInfo.types[CardType.HERO] || 0;
       const hasUrbanLocation = hasCardWithTypeAndTag(
