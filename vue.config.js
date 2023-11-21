@@ -1,5 +1,4 @@
-const { defineConfig } = require("@vue/cli-service");
-module.exports = defineConfig({
-  transpileDependencies: true,
-  publicPath: "/remix-scoring/",
-});
+// vue.config.js
+module.exports = {
+  publicPath: "https://jlvgit.github.io/remix-scoring",
+};
